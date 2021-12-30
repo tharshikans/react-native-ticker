@@ -86,11 +86,11 @@ const TickItem: React.FC<TickProps> = ({
 
   const position = getPosition({
     text: children,
-    height: measurement.height,
+    height: measurement?.height,
     items: rotateItems,
   });
 
-  const widthAnim = useInitRef(() => new Animated.Value(measurement.width));
+  const widthAnim = useInitRef(() => new Animated.Value(measurement?.width));
   const stylePos = useInitRef(() => new Animated.Value(position));
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const TickItem: React.FC<TickProps> = ({
         easing: Easing.linear,
       }).start();
       Animated.timing(widthAnim, {
-        toValue: measurement.width,
+        toValue: measurement?.width,
         duration: 25,
         easing: Easing.linear,
       }).start();
@@ -111,7 +111,7 @@ const TickItem: React.FC<TickProps> = ({
   return (
     <Animated.View
       style={{
-        height: measurement.height,
+        height: measurement?.height,
         width: widthAnim,
         overflow: "hidden",
       }}
@@ -122,7 +122,7 @@ const TickItem: React.FC<TickProps> = ({
         }}
       >
         {rotateItems.map(v => (
-          <Text key={v} {...textProps} style={[textStyle, { height: measurement.height }]}>
+          <Text key={v} {...textProps} style={[textStyle, { height: measurement?.height }]}>
             {v}
           </Text>
         ))}
@@ -151,8 +151,8 @@ const Ticker: React.FC<Props> = ({ duration = 250, textStyle, textProps, childre
     if (!measureMap.current) return;
 
     measureMap.current[v] = {
-      width: e.nativeEvent.layout.width,
-      height: e.nativeEvent.layout.height,
+      width: e?.nativeEvent?.layout?.width,
+      height: e?.nativeEvent?.layout?.height,
     };
 
     if (Object.keys(measureMap.current).length === rotateItems.length) {
